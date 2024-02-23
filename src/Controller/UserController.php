@@ -114,7 +114,6 @@ class UserController extends AbstractController
         
 
         $em->flush();
-        return $this->redirectToRoute('current_user');
 
         }
         $users = $userRepository->findAll();

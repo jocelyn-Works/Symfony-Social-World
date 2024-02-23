@@ -66,26 +66,26 @@ justify-content: space-evenly;
 
 /* ----------- button primary ------------ */
 
-.btn {
-  border-radius: $border-radius;
-  padding: 10px 20px;
-  border: none;
-  box-shadow: $box-shadow;
-  cursor: pointer;
+  .btn {
+    border-radius: $border-radius;
+    padding: 10px 20px;
+    border: none;
+    box-shadow: $box-shadow;
+    cursor: pointer;
 
-  &.btn-primary {
-    background-color: $primary;
-    color: $white;
-    font-weight: 600;
+    &.btn-primary {
+      background-color: $primary;
+      color: $white;
+      font-weight: 600;
 
-    &:hover {
-      transition: opacity 0.4s;
-      border: 2px solid $primary;
-      background-color: $white;
-      color: $primary;
+      &:hover {
+        transition: opacity 0.4s;
+        border: 2px solid $primary;
+        background-color: $white;
+        color: $primary;
+      }
     }
   }
-}
 
 .border-body{
   border-radius: 30px;
