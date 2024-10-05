@@ -2,36 +2,39 @@
 
 namespace App\Controller;
 
-use App\Entity\ResetPassword;
+use DateTime;
 use App\Entity\User;
 use App\Form\UserType;
-use App\Repository\ResetPasswordRepository;
+use App\Entity\ResetPassword;
 use App\Repository\UserRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ResetPasswordRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
-use Symfony\Component\Validator\Constraints\Length;
 
 class SecurityController extends AbstractController
 {
     private EntityManagerInterface $em;
+    private FormLoginAuthenticator $formLoginAuthenticator;
 
-    public function __construct(private $formLoginAuthenticator, EntityManagerInterface $em)
+    public function __construct( FormLoginAuthenticator  $formLoginAuthenticator, EntityManagerInterface $em)
     {  
+        $this->formLoginAuthenticator = $formLoginAuthenticator;
         $this->em = $em;
     }
 
